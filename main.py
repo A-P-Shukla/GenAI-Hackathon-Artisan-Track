@@ -20,7 +20,7 @@ app = FastAPI(
 # Configure CORS (Cross-Origin Resource Sharing)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allows all origins, you can restrict this in production
+    allow_origins=["*"],  # Allows all origins, can restrict this in production
     allow_credentials=True,
     allow_methods=["*"],  # Allows all HTTP methods
     allow_headers=["*"],  # Allows all headers
@@ -33,11 +33,10 @@ GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
 # Check if the API key is available
 if not GOOGLE_API_KEY:
-    raise ValueError("🔴 Google API key not found. Please set it in the .env file.")
+    raise ValueError("Google API key not found. Please set it in the .env file.")
 
 # Configure the generative AI model
 genai.configure(api_key=GOOGLE_API_KEY)
-# --- MODIFICATION ---
 model = genai.GenerativeModel('gemini-2.5-flash-lite')
 
 
@@ -89,7 +88,7 @@ async def generate_product_content(request: ProductRequest):
     Receives product details and generates marketing content, including SEO tags.
     """
     try:
-        # --- MODIFICATION: The prompt is updated to ask for SEO tags ---
+        # ---The prompt is updated---
         prompt = f"""
         You are an expert in e-commerce marketing and storytelling for traditional Indian artisans. 
         Your task is to generate compelling marketing content based on the product details provided.
@@ -157,4 +156,5 @@ async def generate_artisan_bio(request: ArtisanBioRequest):
         raise HTTPException(status_code=500, detail="Failed to parse AI response as JSON.")
     except Exception as e:
         print(f"An error occurred: {e}")
+
         raise HTTPException(status_code=500, detail="An error occurred while generating the bio.")
