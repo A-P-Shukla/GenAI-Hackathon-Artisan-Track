@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import logo from '../assets/images/Kalakar_logo.png';
 
 const CGPage = () => {
     // State to manage which form is currently displayed: 'bio' or 'content'
@@ -282,6 +283,9 @@ const CGPage = () => {
     return (
         <div style={containerStyle}>
             <div style={cardStyle}>
+                <div style={logoWrapper}>
+                    <img style={logo_style} src={logo} alt="Logo"/>
+                </div>
                 <h1 style={titleStyle}>
                     {feature === 'bio'
                         ? '"About The Artisan" Bio Generation'
@@ -316,7 +320,6 @@ const CGPage = () => {
     );
 };
 
-// CSS styles as JavaScript objects
 const containerStyle = {
     display: 'flex',
     flexDirection: 'column',
@@ -485,6 +488,16 @@ const contentFieldText = {
     lineHeight: '1.6',
     whiteSpace: 'pre-wrap',
 };
+
+const logoWrapper = {
+    display: 'flex',
+    justifyContent: 'center',
+}
+
+const logo_style = {
+    height: '120px',
+    width: '120px',
+}
 
 
 export default CGPage;
